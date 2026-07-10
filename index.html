@@ -717,7 +717,7 @@
 
 </main>
 
-<footer>Taylor's Autos — internal demo booking system. No real texts or emails are sent; notifications shown here are previews only.</footer>
+<footer>Taylor's Autos — track your booking any time using your job number or mobile number above.</footer>
 
 <div class="toast" id="toast"></div>
 
@@ -939,10 +939,12 @@ async function trackBooking(){
 
   if(matches.length === 0){
     resultsEl.innerHTML = '<div class="empty-state">No booking found for that number or job number. Double check it, or book a new job above.</div>';
+    stopTrackPolling();
     return;
   }
 
   resultsEl.innerHTML = matches.map(renderTrackTicket).join('');
+  startTrackPolling();
 }
 
 function daysBetween(dateStr){
@@ -987,7 +989,7 @@ function renderTrackTicket(b){
       <div class="stamp">Ready</div>
       <div>
         <div style="font-weight:600;">Your ${escapeHtml(b.carMake)} is ready to collect!</div>
-        <div class="msg-preview">Preview of pickup text: "Hi ${escapeHtml(b.name.split(' ')[0]||'there')}, your ${escapeHtml(b.carMake)} (${escapeHtml(b.plate)}) is ready to collect from Taylor's Autos. See you soon!"</div>
+        <div class="msg-preview">We don't send automatic texts yet — please check back here for updates, or call us if you have questions.</div>
       </div>
     </div>` : '';
 
@@ -1012,6 +1014,31 @@ function renderTrackTicket(b){
 document.getElementById('track-input').addEventListener('keydown', function(e){
   if(e.key === 'Enter'){ e.preventDefault(); trackBooking(); }
 });
+
+/* Auto-refresh the tracker every 20s so customers see status changes
+   without needing to manually refresh or re-search. Silent (no loading
+   flicker, no toast) — only updates if there's something being tracked. */
+let trackPollTimer = null;
+function startTrackPolling(){
+  stopTrackPolling();
+  trackPollTimer = setInterval(async ()=>{
+    const raw = document.getElementById('track-input').value.trim();
+    if(!raw) return;
+    await loadBookings(false);
+    const needle = raw.toLowerCase().replace(/\s+/g,'');
+    const matches = bookingsCache.filter(b=>{
+      const phoneNorm = (b.phone||'').toLowerCase().replace(/\s+/g,'');
+      const idNorm = (b.id||'').toLowerCase().replace(/\s+/g,'');
+      return phoneNorm === needle || idNorm.includes(needle);
+    });
+    if(matches.length){
+      document.getElementById('track-results').innerHTML = matches.map(renderTrackTicket).join('');
+    }
+  }, 20000);
+}
+function stopTrackPolling(){
+  if(trackPollTimer){ clearInterval(trackPollTimer); trackPollTimer = null; }
+}
 
 /* ============================================================
    OWNER: STATS
