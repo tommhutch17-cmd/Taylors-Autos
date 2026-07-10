@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taylor's Autos — Bookings & Workshop Board</title>
+<title>Taylor's Autos — MOT, Servicing & Repairs in Rhyl</title>
+<meta name="description" content="Taylor's Autos, 59 Ffordd Las, Rhyl. MOT testing, servicing, brakes, diagnostics and repairs. Book online or call 01745 350621.">
+<meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -86,6 +88,36 @@
   }
   .brand-text h1{font-size:24px;color:#fff;line-height:1;}
   .brand-text p{margin:4px 0 0;font-size:12.5px;color:#B8BCC2;text-transform:none;letter-spacing:0;font-family:'Inter',sans-serif;}
+
+  .brandbar-contact{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px 14px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px;
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    color:#C7CBD1;
+  }
+  .brandbar-contact a{color:#C7CBD1;text-decoration:underline;text-underline-offset:2px;}
+  .brandbar-contact a:hover{color:#fff;}
+  .brandbar-contact .sep{color:#5A5F66;}
+  .brandbar-contact .rating{color:var(--amber);font-weight:600;}
+
+  .shopfront-banner{
+    width:100%;
+    max-height:260px;
+    overflow:hidden;
+    line-height:0;
+  }
+  .shopfront-banner img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
 
   .view-toggle{
     display:flex;
@@ -242,6 +274,37 @@
   .btn-outline-dark:hover{border-color:var(--orange);color:#fff;}
 
   /* ===== Track section ===== */
+  .reviews-strip{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+    align-items:stretch;
+    margin:0 0 48px;
+    padding-top:32px;
+    border-top:1px solid #E4DCC8;
+  }
+  .review-card{
+    flex:1 1 220px;
+    background:var(--paper);
+    border:1px solid var(--paper-line);
+    border-radius:10px;
+    padding:16px 18px;
+  }
+  .review-card p{font-size:13.5px;color:var(--ink-soft);font-family:'Inter',sans-serif;line-height:1.5;}
+  .review-stars{color:var(--amber);font-size:14px;margin-bottom:6px;letter-spacing:1px;}
+  .review-summary{
+    flex:0 0 auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:16px 24px;
+    font-family:'Oswald',sans-serif;
+  }
+  .rating-big{font-size:34px;font-weight:700;color:var(--ink);line-height:1;}
+  .rating-of5{font-size:14px;color:var(--ink-soft);}
+  .rating-count{font-size:11.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.5px;margin-top:4px;}
+
   .track-section{margin-bottom:56px;}
   .section-head{margin-bottom:20px;}
   .section-head .eyebrow{
@@ -582,6 +645,19 @@
       <button id="tab-owner" onclick="switchView('owner')">Shop Owner</button>
     </div>
   </div>
+  <div class="brandbar-contact">
+    <a href="https://maps.google.com/?q=59+Ffordd+Las,+Rhyl+LL18+2EE" target="_blank" rel="noopener">59 Ffordd Las, Rhyl LL18 2EE</a>
+    <span class="sep">·</span>
+    <a href="tel:01745350621">01745 350621</a>
+    <span class="sep">·</span>
+    <span>Open today · Closes 5:30pm</span>
+    <span class="sep">·</span>
+    <span class="rating">★ 4.4 (27 reviews)</span>
+  </div>
+</div>
+
+<div class="shopfront-banner">
+  <img src="taylors-sign.jpg" alt="Taylor's Autos workshop signage, 59 Ffordd Las, Rhyl" loading="eager">
 </div>
 
 <main>
@@ -659,6 +735,26 @@
           <button type="submit" class="btn btn-primary btn-block">Book my car in</button>
         </form>
         <p class="data-note" id="customer-config-note">Booking details are stored so our team and you can both track the job.</p>
+      </div>
+    </div>
+
+    <div class="reviews-strip">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Fabulous service and excellent work, definitely recommend."</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Competitive prices and friendly advice — I always have my MOT done here."</p>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <p>"Polite and chatty, we'll see about quality of work!"</p>
+      </div>
+      <div class="review-summary">
+        <span class="rating-big">4.4</span>
+        <span class="rating-of5">/ 5</span>
+        <span class="rating-count">from 27 Google reviews</span>
       </div>
     </div>
 
