@@ -43,3 +43,10 @@ These can be added after this secure base is confirmed working.
 
 SECURITY NOTE
 The Supabase anon key in assets/js/config.js is a public browser key, not the service-role secret. Never put a Supabase service-role key in GitHub or frontend code.
+
+LATEST BOOKING FIX
+------------------
+This version includes a safer booking submission check. If Supabase reports an
+error after a booking has actually been saved, the page verifies the new job
+through the secure tracking function before showing a failure message. This
+prevents customers submitting duplicate requests.
