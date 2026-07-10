@@ -1,5 +1,20 @@
 const cfg = window.APP_CONFIG || {};
-const supabaseClient = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+const isStaffPage = window.location.pathname.endsWith('/staff.html') || window.location.pathname.endsWith('staff.html');
+
+// Public pages must not reuse an old staff login token stored by a previous version
+// of the site. A stale token can cause anonymous booking requests to return 401.
+const supabaseClient = window.supabase.createClient(
+  cfg.supabaseUrl,
+  cfg.supabaseAnonKey,
+  {
+    auth: {
+      persistSession: isStaffPage,
+      autoRefreshToken: isStaffPage,
+      detectSessionInUrl: isStaffPage,
+      storageKey: isStaffPage ? 'taylors-autos-staff-auth' : 'taylors-autos-public-auth'
+    }
+  }
+);
 window.sb = supabaseClient;
 
 function toggleMenu(){ document.querySelector('.navlinks')?.classList.toggle('open'); }
