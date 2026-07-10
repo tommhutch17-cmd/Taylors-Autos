@@ -33,6 +33,7 @@ async function submitBooking(event){
     actual_cost:null,
     parts_cost:null,
     deadline:null,
+    created_at:Date.now(),
     ready_notified_at:null
   };
 
